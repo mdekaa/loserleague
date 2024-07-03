@@ -113,7 +113,7 @@ export default function NotificationsPage() {
               <VoteIcon /> Votes
             </TabsTrigger>
             <TabsTrigger value="thumbnail" className="flex gap-2">
-              <PictureInPictureIcon /> Thumbnails
+              <PictureInPictureIcon /> Polls
             </TabsTrigger>
             <TabsTrigger value="comment" className="flex gap-2">
               <MessageSquareIcon /> Comments

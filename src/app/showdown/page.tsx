@@ -98,12 +98,14 @@ export default function ExplorePage() {
                           <TrashIcon />
                         </Button>
                       )}
+                      <p className="text-xl font-bold pb-2">{thumbnail.title}</p>
                       <div className="relative aspect-[1280/720]">
+                        
                         {thumbnail.urls[0] && (
                           <Image
                             alt="image test"
-                            className="object-cover"
-                            src={thumbnail.urls[0]}
+                            className="object-contain"
+                            src={thumbnail.urls[1]}
                             layout="fill"
                           />
                         )}
@@ -132,7 +134,7 @@ export default function ExplorePage() {
                           </p>
                         </div>
                       </div>
-                      <p>{thumbnail.title}</p>
+                      <p className="text-md">{thumbnail.title}</p>
 
                       <p>votes: {getTotalVotes(thumbnail)}</p>
                     </CardContent>
