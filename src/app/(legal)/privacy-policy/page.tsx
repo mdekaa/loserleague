@@ -175,7 +175,7 @@ export default function PrivacyPolicyPage() {
         changes are effective immediately, after they are posted on this page.
       </p>
 
-      <p>Last Modified: 2/2/2024</p>
+      <p>Last Modified: 3/7/2024</p>
     </div>
   );
 }
