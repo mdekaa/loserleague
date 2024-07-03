@@ -1,6 +1,5 @@
-"use client";
-
-import { useAction, useMutation, useQuery } from "convex/react";
+"use client"
+import { useAction, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { UploadButton, UploadFileResponse } from "@xixixao/uploadstuff/react";
 import { useState } from "react";
@@ -15,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { UpgradeButton } from "@/components/upgrade-button";
 import { Id } from "../../../convex/_generated/dataModel";
 import { XIcon } from "lucide-react";
+import { useQuery } from "convex/react";
 
 const defaultErrorState = {
   title: "",
@@ -43,14 +43,14 @@ export default function CreatePage() {
   const router = useRouter();
   const [errors, setErrors] = useState(defaultErrorState);
   const [images, setImages] = useState<Id<"_storage">[]>([]);
+  const [descriptions, setDescriptions] = useState<string[]>([]); // State for descriptions
 
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-8">Create a Thumbnail Test</h1>
+      <h1 className="text-4xl font-bold mb-8">Create a Loser Poll</h1>
 
       <p className="text-lg max-w-md mb-8">
-        Create your test so that other people can vote on their favorite
-        thumbnail and help you redesign or pick the best options.
+      Join us in the quest for the least, where voting for the loser is the real winner of our funny and offbeat polls!
       </p>
 
       <form
@@ -93,15 +93,16 @@ export default function CreatePage() {
             const thumbnailId = await createThumbnail({
               images,
               title,
+              descriptions, // Pass descriptions to action
             });
 
             router.push(`/thumbnails/${thumbnailId}`);
           } catch (err) {
             toast({
-              title: "You ran out of a free credits",
+              title: "You ran out of free credits",
               description: (
                 <div>
-                  You must <UpgradeButton /> in order to create more thumbnail
+                  You must <UpgradeButton /> in order to create more Polls
                   tests
                 </div>
               ),
@@ -111,12 +112,12 @@ export default function CreatePage() {
         }}
       >
         <div className="flex flex-col gap-4 mb-8">
-          <Label htmlFor="title">Youtube Title</Label>
+          <Label htmlFor="title">Title of the poll</Label>
           <Input
             id="title"
             type="text"
             name="title"
-            placeholder="Put your example title of your YouTube video"
+            placeholder="Which of the resume of mine will keep me unemployed forever ?"
             className={clsx({
               border: errors.title,
               "border-red-500": errors.title,
@@ -129,7 +130,7 @@ export default function CreatePage() {
           {images.map((imageUrl, idx) => {
             return (
               <div key={imageUrl} className="flex flex-col relative">
-                <div>Image {idx + 1}</div>
+                <div>Loser Image {idx + 1}</div>
                 <Button
                   size={"sm"}
                   variant="destructive"
@@ -143,13 +144,24 @@ export default function CreatePage() {
                 <div className="relative aspect-[1280/720]">
                   <ConvexImage imageId={imageUrl} />
                 </div>
+                <Input
+                  id={`description-${idx}`} // Unique ID for each description input
+                  type="text"
+                  placeholder={`Description for Image ${idx + 1}`}
+                  value={descriptions[idx] || ""}
+                  onChange={(e) => {
+                    const newDescriptions = [...descriptions];
+                    newDescriptions[idx] = e.target.value;
+                    setDescriptions(newDescriptions);
+                  }}
+                />
               </div>
             );
           })}
 
           <div className="flex flex-col gap-4 mb-8">
             <Label htmlFor="title">
-              {images.length > 0 && "Another"} Thumbnail Images
+              {images.length > 0 && "Another"} Loser Images
             </Label>
             <UploadButton
               className={(combinedState) => {
@@ -181,7 +193,7 @@ export default function CreatePage() {
           </div>
         </div>
 
-        <Button>Upload Thumbnail Test</Button>
+        <Button>Upload Loser Poll</Button>
       </form>
     </div>
   );

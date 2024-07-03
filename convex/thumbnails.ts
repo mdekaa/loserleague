@@ -10,19 +10,21 @@ export const createThumbnail = internalMutation({
   args: {
     title: v.string(),
     images: v.array(v.id("_storage")),
+    descriptions: v.array(v.string()),
     userId: v.id("users"),
   },
   handler: async (ctx, args) => {
     const user = await ctx.db.get(args.userId);
 
     if (!user) {
-      throw new ConvexError("User not found");
+      throw new ConvexError("User nott found");
     }
 
     const id = await ctx.db.insert("thumbnails", {
       title: args.title,
       userId: user._id,
       images: args.images,
+      descriptions: args.descriptions,
       votes: args.images.map(() => 0),
       voteIds: [],
       profileImage: user.profileImage,
@@ -54,6 +56,7 @@ export const createThumbnailAction = authAction({
   args: {
     title: v.string(),
     images: v.array(v.id("_storage")),
+    descriptions: v.array(v.string()),
   },
   handler: async (ctx, args) => {
     const thumbnailId: Id<"thumbnails"> = await ctx.runMutation(
@@ -61,15 +64,12 @@ export const createThumbnailAction = authAction({
       {
         images: args.images,
         title: args.title,
+        descriptions: args.descriptions,
         userId: ctx.user._id,
       }
     );
 
-    if (ctx.user.isPremium) {
-      await ctx.scheduler.runAfter(0, internal.vision.generateAIComment, {
-        thumbnailId: thumbnailId,
-      });
-    }
+    
 
     return thumbnailId;
   },

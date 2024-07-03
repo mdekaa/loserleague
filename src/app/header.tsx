@@ -1,7 +1,7 @@
 "use client";
 
 import { SignInButton, UserButton } from "@clerk/nextjs";
-import { ModeToggle } from "./mode-toggle";
+
 import Link from "next/link";
 import { useSession } from "@/lib/utils";
 import MobileNav, { MenuToggle, useMobileNavState } from "./mobile-nav";
@@ -30,7 +30,7 @@ export function Header() {
   const { isOpen, toggleOpen } = useMobileNavState();
 
   return (
-    <div className="border-b dark:bg-gray-900">
+    <div className=" bg-gradient-to-r from-indigo-400 to-cyan-700">
       <MobileNav isOpen={isOpen} toggleOpen={toggleOpen} />
 
       <div className="h-16 container flex justify-between items-center">
@@ -46,37 +46,35 @@ export function Header() {
             height="40"
           />
           <span className="text-xs md:text-base hidden sm:block">
-            ThumbnailCritique
+            LoserLeague
           </span>
         </Link>
 
         <div className="gap-4 hidden md:flex md:gap-8 text-xs md:text-base">
           {!isLoading && isAuthenticated && (
             <>
-              <Link href="/dashboard" className="link">
-                Dashboard
+              <Link href="/yourpoll" className="link">
+                YourPolls
               </Link>
               <Link href="/create" className="link">
-                Create
+                CreatePoll
               </Link>
-              <Link href="/explore" className="link">
-                Explore
+              <Link href="/showdown" className="link">
+                LoserShowdown
               </Link>
               <Link href="/following" className="link">
                 Following
               </Link>
-              <Link href="/account" className="link">
-                Account
+              <Link href="/user" className="link">
+                User
               </Link>
             </>
           )}
 
-          <Link href="/changelog" className="link">
-            Changelog
-          </Link>
+          
 
-          <Link href="/roadmap" className="link">
-            Roadmap
+          <Link href="/updates" className="link">
+            Updates
           </Link>
         </div>
 
@@ -102,7 +100,7 @@ export function Header() {
             </>
           )}
 
-          <ModeToggle />
+         
 
           <MenuToggle toggle={toggleOpen} />
         </div>

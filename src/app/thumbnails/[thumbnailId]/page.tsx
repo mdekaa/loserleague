@@ -40,30 +40,40 @@ function ThumbnailTestImage({
   imageUrl,
   imageId,
   thumbnail,
+  description,
+  hasImage,
   hasVoted,
 }: {
-  imageUrl: string;
-  thumbnail: Doc<"thumbnails">;
-  hasVoted: boolean;
+  imageUrl?: string | null | undefined; // Make imageUrl optional
   imageId: Id<"_storage">;
+  thumbnail: Doc<"thumbnails">;
+  description: string;
+  hasImage: boolean;
+  hasVoted: boolean;
 }) {
   const voteOnThumbnail = useMutation(api.thumbnails.voteOnThumbnail);
 
   return (
     <div className="flex flex-col gap-4 border p-4 bg-white dark:bg-gray-950">
-      <div className="relative aspect-[1280/720]">
-        <Image
-          alt="image test"
-          className="object-cover"
-          src={imageUrl}
-          layout="fill"
-        />
-      </div>
+      {hasImage && imageUrl ? ( // Check if imageUrl is defined before rendering Image component
+        <div className="relative aspect-[1280/720]">
+          <Image
+            alt="image test"
+            className="object-cover"
+            src={imageUrl}
+            layout="fill"
+          />
+        </div>
+      ) : (
+        <div className="bg-gray-200 flex items-center justify-center h-48">
+          No image
+        </div>
+      )}
 
       <div className="flex gap-4">
         <Link href={`/profile/${thumbnail.userId}`}>
           <Avatar>
-            <AvatarImage src={thumbnail.profileImage} />
+            <AvatarImage src={thumbnail?.profileImage} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </Link>
@@ -72,10 +82,10 @@ function ThumbnailTestImage({
             {thumbnail.title}
           </div>
           <div className="flex gap-2 items-center text-gray-700 dark:text-gray-300">
-            {thumbnail.name} <CheckCircleIcon size={12} />
+            {description} <CheckCircleIcon size={12} />
           </div>
           <div className="flex text-gray-700 dark:text-gray-300">
-            <div>152K Views</div>
+            <div>1M Views</div>
             <DotIcon />
             {formatDistance(new Date(thumbnail._creationTime), new Date(), {
               addSuffix: true,
@@ -165,7 +175,6 @@ export default function ThumbnailPage() {
         </Link>
       </div>
 
-      {/* {!hasVoted && ( */}
       <>
         <Tabs defaultValue="grid" className="">
           <TabsList className="grid max-w-96 grid-cols-2 mx-auto mb-4">
@@ -185,19 +194,17 @@ export default function ThumbnailPage() {
 
           <TabsContent value="grid">
             <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {thumbnail.urls.map((imageUrl, idx) => {
-                return (
-                  imageUrl && (
-                    <ThumbnailTestImage
-                      key={imageUrl}
-                      imageId={thumbnail.images[idx]}
-                      hasVoted={hasVoted}
-                      imageUrl={imageUrl}
-                      thumbnail={thumbnail}
-                    />
-                  )
-                );
-              })}
+              {thumbnail.urls.map((imageUrl, idx) => (
+                <ThumbnailTestImage
+                  key={imageUrl || `no-image-${idx}`} // Use a key that handles no image scenarios
+                  imageId={thumbnail.images[idx]}
+                  hasVoted={hasVoted}
+                  imageUrl={imageUrl}
+                  description={thumbnail.descriptions[idx] || "No description"} // Provide a default if description is undefined
+                  hasImage={!!imageUrl} // Check if imageUrl is present
+                  thumbnail={thumbnail}
+                />
+              ))}
             </div>
           </TabsContent>
 
@@ -207,6 +214,8 @@ export default function ThumbnailPage() {
                 imageId={thumbnail.images[currentImageIndex]!}
                 hasVoted={hasVoted}
                 imageUrl={thumbnail.urls[currentImageIndex]!}
+                description={thumbnail.descriptions[currentImageIndex] || "No description"} // Provide a default if description is undefined
+                hasImage={!!thumbnail.urls[currentImageIndex]} // Check if imageUrl is present
                 thumbnail={thumbnail}
               />
 
@@ -247,67 +256,6 @@ export default function ThumbnailPage() {
           </TabsContent>
         </Tabs>
       </>
-      {/* )} */}
-
-      {/* {hasVoted && (
-        <div className="max-w-4xl mx-auto flex flex-col gap-4">
-          {sortedImages.map((imageId) => (
-            <div
-              key={imageId}
-              className="grid md:grid-cols-2 grid-cols-1 gap-8 items-center"
-            >
-              <div className="flex flex-col gap-4 border p-4 bg-white dark:bg-gray-950">
-                <div className="relative aspect-[1280/720]">
-                  <Image
-                    alt="image test"
-                    className="object-cover"
-                    src={getImageUrl(imageId)}
-                    layout="fill"
-                  />
-                </div>
-
-                <div className="flex gap-4">
-                  <Link href={`/profile/${thumbnail.userId}`}>
-                    <Avatar>
-                      <AvatarImage src={thumbnail.profileImage} />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                  </Link>
-                  <div className="flex flex-col dark:text-gray-300 text-gray-700">
-                    <div className="font-bold mb-2 text-gray-900 dark:text-white">
-                      {thumbnail.title}
-                    </div>
-                    <div className="flex gap-2 items-center text-gray-700 dark:text-gray-300">
-                      {thumbnail.name} <CheckCircleIcon size={12} />
-                    </div>
-                    <div className="flex text-gray-700 dark:text-gray-300">
-                      <div>152K Views</div>
-                      <DotIcon />
-                      {formatDistance(
-                        new Date(thumbnail._creationTime),
-                        new Date(),
-                        {
-                          addSuffix: true,
-                        }
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <Progress
-                  value={getVotePercent(thumbnail, imageId)}
-                  className="w-full bg-gray-200"
-                />
-                <div className="text-lg">
-                  {getVotesFor(thumbnail, imageId)} votes
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )} */}
 
       <Comments thumbnail={thumbnail} />
     </div>

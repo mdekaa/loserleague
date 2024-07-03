@@ -28,7 +28,7 @@ export default function DashboardPage() {
   return (
     <div className="">
       <h1 className="text-center text-4xl font-bold mb-12">
-        Your Thumbnail Tests
+        Your Loser Polls!
       </h1>
 
       {thumbnails === undefined && (
@@ -43,15 +43,15 @@ export default function DashboardPage() {
         <div className="flex flex-col items-center gap-8">
           <Image
             className="rounded-lg bg-white p-12"
-            src="/void.svg"
+            src="/create.jpeg"
             alt="no found icon"
             width="400"
             height="400"
           />
-          <div className="text-2xl font-bold">You have no thumbnail tests</div>
+          <div className="text-2xl font-bold">You have no Loser Polls. Create one !</div>
 
           <Button asChild>
-            <Link href="/create">Create a Thumbnail Test</Link>
+            <Link href="/create">Create a Loser Polls</Link>
           </Button>
         </div>
       )}

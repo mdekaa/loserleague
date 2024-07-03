@@ -41,7 +41,7 @@ export const authAction = customAction(
     });
 
     if (!user) {
-      throw new ConvexError("user not found");
+      throw new ConvexError("user nott found");
     }
 
     const _id: Id<"users"> = user._id;
@@ -76,7 +76,7 @@ export const adminAuthAction = customAction(
     });
 
     if (!user) {
-      throw new ConvexError("user not found");
+      throw new ConvexError("user notm found");
     }
 
     if (!user.isAdmin) {
@@ -120,7 +120,7 @@ async function getUserOrThrow(ctx: QueryCtx | MutationCtx) {
     .first();
 
   if (!user) {
-    throw new ConvexError("user not found");
+    throw new ConvexError("user notn found");
   }
 
   return user;

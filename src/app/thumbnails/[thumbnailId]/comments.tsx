@@ -35,7 +35,7 @@ export function Comments({ thumbnail }: { thumbnail: Doc<"thumbnails"> }) {
   const comments = useQuery(api.thumbnails.getComments, {
     thumbnailId: thumbnail._id,
   });
-  const adminGenerateAIComment = useAction(api.vision.adminGenerateAIComment);
+  
   const deleteComment = useMutation(api.thumbnails.deleteComment);
   const user = useQuery(
     api.users.getMyUser,
@@ -78,33 +78,7 @@ export function Comments({ thumbnail }: { thumbnail: Doc<"thumbnails"> }) {
     <div>
       <h2 className="mb-4 mt-12 text-2xl font-bold text-center">Comments</h2>
 
-      {user?.isAdmin && (
-        <div className="flex justify-center mb-4">
-          <Button
-            onClick={() => {
-              adminGenerateAIComment({
-                thumbnailId: thumbnail._id,
-              })
-                .then(() => {
-                  toast({
-                    title: `Async Task Started`,
-                    description: `The AI Comment is being generated`,
-                    variant: "default",
-                  });
-                })
-                .catch(() => {
-                  toast({
-                    title: "Something happened",
-                    description: `We could not generate the AI Comment`,
-                    variant: "destructive",
-                  });
-                });
-            }}
-          >
-            Generate AI Comment
-          </Button>
-        </div>
-      )}
+      
 
       <div className="max-w-2xl mx-auto mb-12 space-y-8">
         <div className="space-y-2">
@@ -207,8 +181,7 @@ export function Comments({ thumbnail }: { thumbnail: Doc<"thumbnails"> }) {
                     <Textarea {...field} />
                   </FormControl>
                   <FormDescription>
-                    leave a comment to help the content creator improve their
-                    thumbnail designs
+                    Please leave a comment so that loser gets some constructive feedback !
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

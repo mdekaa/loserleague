@@ -2,7 +2,7 @@ import { ConvexError, v } from "convex/values";
 import { internalMutation, internalQuery, query } from "./_generated/server";
 import { authMutation, authQuery } from "./util";
 
-const FREE_CREDITS = 5;
+const FREE_CREDITS = 500;
 
 export const getUserById = internalQuery({
   args: { userId: v.string() },
