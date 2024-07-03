@@ -53,11 +53,7 @@ export function Footer() {
                     Privacy Policy
                   </Link>
                 </li>
-                <li>
-                  <Link href="/terms-of-service" className="hover:underline">
-                    Terms &amp; Conditions
-                  </Link>
-                </li>
+                
               </ul>
             </div>
           </div>
