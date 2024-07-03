@@ -105,7 +105,7 @@ export default function ExplorePage() {
                           <Image
                             alt="image test"
                             className="object-contain"
-                            src={thumbnail.urls[1]}
+                            src={thumbnail.urls[0]}
                             layout="fill"
                           />
                         )}
