@@ -79,7 +79,7 @@ export default async function RoadmapPage() {
                   <h2 className="text-4xl">Version 1.1 ( under development ) </h2>
 
                   <Markdown className="prose text-white">
-                    I'll introduce categories for different kind of polls and 
+                    Will introduce categories for different kind of polls and 
                     smoothen the expolore polls option.
                   </Markdown>
                 </div>

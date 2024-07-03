@@ -25,7 +25,7 @@ export default function Home() {
           
         </h1>
         <p className="text-center text-gray-700 dark:text-gray-300 text-xl max-w-lg mx-auto">
-          Where choosing the worst is the best decision you'll make all day!
+          Where choosing the worst is the best decision you will make all day!
         </p>
         {!isLoading &&
           (isAuthenticated ? (
