@@ -87,7 +87,7 @@ export default function DashboardPage() {
               </CardContent>
               <CardFooter>
                 <Button className="w-full" asChild>
-                  <Link href={`/thumbnails/${thumbnail._id}`}>
+                  <Link href={`/polls/${thumbnail._id}`}>
                     View Results
                   </Link>
                 </Button>

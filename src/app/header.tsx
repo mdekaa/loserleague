@@ -45,7 +45,7 @@ export function Header() {
             width="40"
             height="40"
           />
-          <span className="text-xs md:text-base hidden sm:block">
+          <span className="text-xs md:text-base hidden sm:block text-white">
             LoserLeague
           </span>
         </Link>

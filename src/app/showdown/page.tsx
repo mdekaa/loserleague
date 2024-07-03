@@ -144,7 +144,7 @@ export default function ExplorePage() {
                       className="w-full"
                       asChild
                     >
-                      <Link href={`/thumbnails/${thumbnail._id}`}>
+                      <Link href={`/polls/${thumbnail._id}`}>
                         {hasVoted(thumbnail) ? "View Results" : "Vote"}
                       </Link>
                     </Button>

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useAction, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { UploadButton, UploadFileResponse } from "@xixixao/uploadstuff/react";
@@ -50,7 +50,8 @@ export default function CreatePage() {
       <h1 className="text-4xl font-bold mb-8">Create a Loser Poll</h1>
 
       <p className="text-lg max-w-md mb-8">
-      Join us in the quest for the least, where voting for the loser is the real winner of our funny and offbeat polls!
+        Join us in the quest for the least, where voting for the loser is the
+        real winner of our funny and offbeat polls!
       </p>
 
       <form
@@ -96,7 +97,7 @@ export default function CreatePage() {
               descriptions, // Pass descriptions to action
             });
 
-            router.push(`/thumbnails/${thumbnailId}`);
+            router.push(`/polls/${thumbnailId}`);
           } catch (err) {
             toast({
               title: "You ran out of free credits",
@@ -117,11 +118,12 @@ export default function CreatePage() {
             id="title"
             type="text"
             name="title"
-            placeholder="Which of the resume of mine will keep me unemployed forever ?"
+            placeholder="Which of the resume of mine will keep me unemployed forever?"
             className={clsx({
               border: errors.title,
               "border-red-500": errors.title,
             })}
+            style={{ color: "black" }} // Ensure input text is black
           />
           {errors.title && <div className="text-red-500">{errors.title}</div>}
         </div>
@@ -154,6 +156,7 @@ export default function CreatePage() {
                     newDescriptions[idx] = e.target.value;
                     setDescriptions(newDescriptions);
                   }}
+                  style={{ color: "black" }} // Ensure input text is black
                 />
               </div>
             );
