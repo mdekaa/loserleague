@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useMutation, useQuery } from "convex/react";
 import { useParams } from "next/navigation";
 import { api } from "../../../../convex/_generated/api";
@@ -41,6 +41,7 @@ function ThumbnailTestImage({
   description,
   hasImage,
   hasVoted,
+  isOwner,
 }: {
   imageUrl?: string | null | undefined;
   imageId: Id<"_storage">;
@@ -48,6 +49,7 @@ function ThumbnailTestImage({
   description: string;
   hasImage: boolean;
   hasVoted: boolean;
+  isOwner: boolean;
 }) {
   const voteOnThumbnail = useMutation(api.thumbnails.voteOnThumbnail);
 
@@ -57,7 +59,7 @@ function ThumbnailTestImage({
         <div className="relative aspect-[1280/720]">
           <Image
             alt="image test"
-            className="object-cover"
+            className="object-contain  w-full h-full"
             src={imageUrl}
             layout="fill"
           />
@@ -108,6 +110,7 @@ function ThumbnailTestImage({
             }}
             size="lg"
             className="w-fit self-center mt-2"
+            disabled={isOwner}
           >
             Unvote
           </Button>
@@ -122,6 +125,7 @@ function ThumbnailTestImage({
           }}
           size="lg"
           className="w-fit self-center mt-2"
+          disabled={isOwner}
         >
           Vote
         </Button>
@@ -143,11 +147,9 @@ export default function ThumbnailPage() {
     return <div>Loading...</div>;
   }
 
+  const isOwner = user?._id === thumbnail.userId;
   const hasVoted = Boolean(
-    user &&
-      (user._id === thumbnail.userId
-        ? true
-        : thumbnail.voteIds.includes(user._id))
+    user && thumbnail.voteIds.includes(user._id)
   );
 
   const sortedImages = thumbnail.images
@@ -202,6 +204,7 @@ export default function ThumbnailPage() {
                 description={thumbnail.descriptions[idx] || "No description"}
                 hasImage={!!imageUrl}
                 thumbnail={thumbnail}
+                isOwner={!!isOwner}
               />
             ))}
           </div>
@@ -218,6 +221,7 @@ export default function ThumbnailPage() {
               }
               hasImage={!!thumbnail.urls[currentImageIndex]}
               thumbnail={thumbnail}
+              isOwner={!!isOwner}
             />
 
             <div className="flex justify-between gap-4 items-center">
@@ -257,5 +261,3 @@ export default function ThumbnailPage() {
     </div>
   );
 }
-
-

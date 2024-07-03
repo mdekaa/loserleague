@@ -222,6 +222,10 @@ export const voteOnThumbnail = authMutation({
       throw new Error("Invalid thumbnail ID");
     }
 
+    if (thumbnail.userId === ctx.user._id) {
+      throw new ConvexError("You cannot vote on your own thumbnail");
+    }
+
     const voteIdx = thumbnail.images.findIndex((i) => i === args.imageId);
 
     if (thumbnail.voteIds.includes(ctx.user._id)) {
