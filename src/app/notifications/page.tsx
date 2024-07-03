@@ -71,7 +71,7 @@ function Notification({
               notificationId: notification._id,
             });
           }
-          router.push(`/thumbnails/${notification.thumbnailId}`);
+          router.push(`/polls/${notification.thumbnailId}`);
         }}
       >
         {notification.isRead ? "View" : "Read"}
@@ -166,8 +166,8 @@ export default function NotificationsPage() {
         {filteredNotifications && filteredNotifications.length === 0 && (
           <div className="flex flex-col items-center gap-8">
             <Image
-              className="rounded-lg bg-white p-12"
-              src="/void.svg"
+              className="rounded-lg bg-white p-1"
+              src="/pewds.jpg"
               alt="no found icon"
               width="400"
               height="400"

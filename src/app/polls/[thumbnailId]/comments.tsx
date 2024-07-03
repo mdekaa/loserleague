@@ -178,9 +178,9 @@ export function Comments({ thumbnail }: { thumbnail: Doc<"thumbnails"> }) {
                 <FormItem>
                   <FormLabel>Your Comment</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea className="text-black" {...field} />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="text-white">
                     Please leave a comment so that loser gets some constructive feedback !
                   </FormDescription>
                   <FormMessage />

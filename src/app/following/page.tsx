@@ -25,8 +25,8 @@ export default function PeersPage() {
           </h1>
           <div className="flex flex-col items-center justify-center gap-8">
             <Image
-              className="rounded-lg bg-white p-12"
-              src="/followers.svg"
+              className="rounded-lg bg-white p-1"
+              src="/pewds.jpg"
               alt="no followers"
               width="400"
               height="400"

@@ -219,28 +219,33 @@ export const voteOnThumbnail = authMutation({
     const thumbnail = await ctx.db.get(args.thumbnailId);
 
     if (!thumbnail) {
-      throw new Error("invalid thumbnail id");
-    }
-
-    if (thumbnail.voteIds.includes(ctx.user._id)) {
-      throw new Error("you've already voted");
+      throw new Error("Invalid thumbnail ID");
     }
 
     const voteIdx = thumbnail.images.findIndex((i) => i === args.imageId);
-    thumbnail.votes[voteIdx]++;
-    thumbnail.voteIds.push(ctx.user._id);
 
-    await ctx.db.insert("notifications", {
-      from: ctx.user._id,
-      isRead: false,
-      thumbnailId: args.thumbnailId,
-      type: "vote",
-      userId: thumbnail.userId,
-    });
+    if (thumbnail.voteIds.includes(ctx.user._id)) {
+      // Already voted, so unvote
+      thumbnail.votes[voteIdx]--;
+      thumbnail.voteIds = thumbnail.voteIds.filter(id => id !== ctx.user._id);
+    } else {
+      // Vote
+      thumbnail.votes[voteIdx]++;
+      thumbnail.voteIds.push(ctx.user._id);
+
+      await ctx.db.insert("notifications", {
+        from: ctx.user._id,
+        isRead: false,
+        thumbnailId: args.thumbnailId,
+        type: "vote",
+        userId: thumbnail.userId,
+      });
+    }
 
     await ctx.db.patch(thumbnail._id, thumbnail);
   },
 });
+
 
 export const deleteThumbnail = adminAuthMutation({
   args: { thumbnailId: v.id("thumbnails") },
