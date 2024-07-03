@@ -118,7 +118,7 @@ export default function CreatePage() {
             id="title"
             type="text"
             name="title"
-            placeholder="Which of the resume of mine will keep me unemployed forever?"
+            placeholder="ex: Which resume of mine will keep me unemployed forever?"
             className={clsx({
               border: errors.title,
               "border-red-500": errors.title,

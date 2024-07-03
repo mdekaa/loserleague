@@ -87,7 +87,7 @@ export default function AccountPage() {
                 <FormLabel className="flex flex-row space-x-1 items-center">
                   Display Name
                 </FormLabel>
-                <div className="flex items-center gap-4 mt-6 max-w-lg">
+                <div className="flex items-center gap-4 mt-6 max-w-lg text-black">
                   <FormControl>
                     <Input {...field} type="text" required />
                   </FormControl>
