@@ -146,7 +146,7 @@ export default function NotificationsPage() {
             return (
               <Notification
                 key={notification._id}
-                description=" voted for one of your thumbnail images."
+                description=" voted for one of your LoserPolls."
                 icon={<PictureInPictureIcon className="h-14 w-14" />}
                 title="New Vote"
                 notification={notification}
