@@ -59,11 +59,11 @@ export default function MobileNav({
           <MenuItem className="my-3 h-px w-full bg-gray-300" />
           <MenuItem key="Dashboard">
             <Link
-              href="/dashboard"
+              href="/yourpoll"
               onClick={() => toggleOpen()}
               className="flex w-full font-semibold capitalize"
             >
-              Dashboard
+              Your Poll
             </Link>
           </MenuItem>
           <MenuItem className="my-3 h-px w-full bg-gray-300" />
@@ -79,11 +79,11 @@ export default function MobileNav({
           <MenuItem className="my-3 h-px w-full bg-gray-300" />
           <MenuItem key="Explore">
             <Link
-              href="/explore"
+              href="/showdown"
               onClick={() => toggleOpen()}
               className="flex w-full font-semibold capitalize"
             >
-              Explore
+              LoserShowdown
             </Link>
           </MenuItem>
           <MenuItem className="my-3 h-px w-full bg-gray-300" />
@@ -101,11 +101,11 @@ export default function MobileNav({
 
           <MenuItem key="Account">
             <Link
-              href="/account"
+              href="/profile"
               onClick={() => toggleOpen()}
               className="flex w-full font-semibold capitalize"
             >
-              Account
+              Profile
             </Link>
           </MenuItem>
           <MenuItem className="my-3 h-px w-full bg-gray-300" />
