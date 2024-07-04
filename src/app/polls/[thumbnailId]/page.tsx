@@ -54,7 +54,7 @@ function ThumbnailTestImage({
   const voteOnThumbnail = useMutation(api.thumbnails.voteOnThumbnail);
 
   return (
-    <div className="flex flex-col gap-4 border p-4 bg-white dark:bg-gray-950">
+    <div className="border rounded flex flex-col gap-4 p-4 bg-gradient-to-r from-slate-500 to-slate-800">
       {hasImage && imageUrl ? (
         <div className="relative aspect-[1280/720]">
           <Image
@@ -81,10 +81,16 @@ function ThumbnailTestImage({
           <div className="font-bold mb-2 text-gray-900 dark:text-white">
             {thumbnail.title}
           </div>
-          <div className="flex gap-2 items-center text-gray-700 dark:text-gray-300">
-            {description} <CheckCircleIcon size={12} />
+          <div className="border rounded mr-10 w-70 p-5 mb-3 mt-3 bg-gradient-to-r from-slate-900 to-slate-700">
+            <p className="text-white">description: </p>
+            <div className="flex gap-2 items-center text-white">
+              
+              {description} 
+            </div>
+
           </div>
-          <div className="flex text-gray-700 dark:text-gray-300">
+          
+          <div className="flex text-white">
             <div>1M Views</div>
             <DotIcon />
             {formatDistance(new Date(thumbnail._creationTime), new Date(), {

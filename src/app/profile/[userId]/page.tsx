@@ -63,7 +63,7 @@ function UserThumbnails() {
                   {thumbnail.urls[0] && (
                     <Image
                       alt="image test"
-                      className="object-cover"
+                      className="object-contain"
                       src={thumbnail.urls[0]}
                       layout="fill"
                     />
@@ -71,8 +71,8 @@ function UserThumbnails() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p>{thumbnail.title}</p>
-                <p>
+                <p className="text-white">{thumbnail.title}</p>
+                <p className="text-white">
                   {formatDistance(
                     new Date(thumbnail._creationTime),
                     new Date(),
@@ -81,11 +81,11 @@ function UserThumbnails() {
                     }
                   )}
                 </p>
-                <p>votes: {getTotalVotes(thumbnail)}</p>
+                <p className="text-white">votes: {getTotalVotes(thumbnail)}</p>
               </CardContent>
               <CardFooter>
                 <Button className="w-full" asChild>
-                  <Link href={`/thumbnails/${thumbnail._id}`}>
+                  <Link href={`/polls/${thumbnail._id}`}>
                     View Results
                   </Link>
                 </Button>

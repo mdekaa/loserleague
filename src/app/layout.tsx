@@ -32,7 +32,7 @@ export default function RootLayout({
           <NextTopLoader />
           <Header />
           <div className="text-white bg-gradient-to-r from-cyan-900 to-blue-700">
-            <div className="container min-h-screen pt-12">{children}</div>
+            <div className=" container min-h-screen pt-12">{children}</div>
           </div>
           <Footer />
           <Toaster />

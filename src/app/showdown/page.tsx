@@ -68,7 +68,7 @@ export default function ExplorePage() {
       {!isLoading && thumbnails.length === 0 && (
         <div className="flex flex-col items-center gap-8">
           <Image
-            className="rounded-lg bg-white p-12"
+            className="rounded-lg bg-gradient-to-r from-slate-500 to-slate-800 p-12"
             src="/void.svg"
             alt="no found icon"
             width="400"
@@ -79,11 +79,11 @@ export default function ExplorePage() {
       )}
 
       {thumbnails.length > 0 && (
-        <div className="mb-12 mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="mb-2 mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {thumbnails.map((thumbnail) => {
             return (
               <Card key={thumbnail._id}>
-                <div className="flex flex-col justify-between">
+                <div className=" flex flex-col justify-between">
                   <div>
                     <CardHeader className="relative">
                       {user?.isAdmin && (
@@ -98,7 +98,7 @@ export default function ExplorePage() {
                           <TrashIcon />
                         </Button>
                       )}
-                      <p className="text-xl font-bold pb-2">{thumbnail.title}</p>
+                      <p className="text-xl text-white font-bold pr-3 pb-2 pt-2 pl-3 mb-3 border rounded bg-gradient-to-r from-slate-900 to-slate-700">{thumbnail.title}</p>
                       <div className="relative aspect-[1280/720]">
                         
                         {thumbnail.urls[0] && (
@@ -112,7 +112,7 @@ export default function ExplorePage() {
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex gap-4 items-center mb-2">
+                      <div className="text-white flex gap-4 items-center mb-2">
                         <Link href={`/profile/${thumbnail.userId}`}>
                           <Avatar>
                             <AvatarImage src={thumbnail.profileImage} />
@@ -120,10 +120,10 @@ export default function ExplorePage() {
                           </Avatar>
                         </Link>
 
-                        <div>
+                        <div className="text-white">
                           <p>{thumbnail.name}</p>
 
-                          <p>
+                          <p className="text-white">
                             {formatDistance(
                               new Date(thumbnail._creationTime),
                               new Date(),
@@ -134,13 +134,14 @@ export default function ExplorePage() {
                           </p>
                         </div>
                       </div>
-                      <p className="text-md">{thumbnail.title}</p>
+                      <p className="text-white text-md">{thumbnail.title}</p>
 
-                      <p>votes: {getTotalVotes(thumbnail)}</p>
+                      <p className="text-white">votes: {getTotalVotes(thumbnail)}</p>
+                      <p className="text-white">1M Views</p>
                     </CardContent>
                   </div>
 
-                  <CardFooter>
+                  <CardFooter >
                     <Button
                       variant={hasVoted(thumbnail) ? "outline" : "default"}
                       className="w-full"
