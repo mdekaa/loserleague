@@ -74,7 +74,7 @@ export default function CreatePage() {
           if (images.length < 2) {
             newErrors = {
               ...newErrors,
-              images: "you must upload at least 2 thumbnails",
+              images: "you must upload at least 2 images",
             };
           }
 
