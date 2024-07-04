@@ -34,7 +34,7 @@ export default function PeersPage() {
             <div className="text-2xl font-bold">You have no followers</div>
 
             <Button asChild>
-              <Link href="/explore">Go Follow Someone</Link>
+              <Link href="/showdown">Go Follow Someone</Link>
             </Button>
           </div>
         </>
