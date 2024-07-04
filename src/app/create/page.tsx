@@ -28,7 +28,7 @@ function ConvexImage({ imageId }: { imageId: Id<"_storage"> }) {
     imageUrl && (
       <Image
         alt="image test image"
-        className="object-cover"
+        className="object-contain"
         src={imageUrl}
         layout="fill"
       />
