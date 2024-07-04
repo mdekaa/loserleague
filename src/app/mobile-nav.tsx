@@ -101,7 +101,7 @@ export default function MobileNav({
 
           <MenuItem key="Account">
             <Link
-              href="/profile"
+              href="/user"
               onClick={() => toggleOpen()}
               className="flex w-full font-semibold capitalize"
             >
