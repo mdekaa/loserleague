@@ -13,7 +13,6 @@ import { Comments } from "./comments";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
-  CheckCircleIcon,
   DotIcon,
   GalleryHorizontal,
   LayoutGrid,
@@ -52,6 +51,29 @@ function ThumbnailTestImage({
   isOwner: boolean;
 }) {
   const voteOnThumbnail = useMutation(api.thumbnails.voteOnThumbnail);
+  const [selectedImageId, setSelectedImageId] = useState<string | null>(
+    hasVoted ? imageId : null
+  );
+
+  const handleVote = (imageId: string) => {
+    if (!isOwner && !hasVoted) {
+      voteOnThumbnail({
+        thumbnailId: thumbnail._id,
+        imageId: imageId,
+      });
+      setSelectedImageId(imageId);
+    }
+  };
+
+  const handleUnvote = (imageId: string) => {
+    if (!isOwner && hasVoted && selectedImageId === imageId) {
+      voteOnThumbnail({
+        thumbnailId: thumbnail._id,
+        imageId: imageId,
+      });
+      setSelectedImageId(null);
+    }
+  };
 
   return (
     <div className="border rounded flex flex-col gap-4 p-4 bg-gradient-to-r from-slate-500 to-slate-800">
@@ -59,7 +81,7 @@ function ThumbnailTestImage({
         <div className="relative aspect-[1280/720]">
           <Image
             alt="image test"
-            className="object-contain  w-full h-full"
+            className="object-contain w-full h-full"
             src={imageUrl}
             layout="fill"
           />
@@ -82,59 +104,51 @@ function ThumbnailTestImage({
             {thumbnail.title}
           </div>
           <div className="border rounded mr-10 w-70 p-5 mb-3 mt-3 bg-gradient-to-r from-slate-900 to-slate-700">
-            <p className="text-white">description: </p>
-            <div className="flex gap-2 items-center text-white">
-              
-              {description} 
-            </div>
-
+            <p className="text-white">Description: {description}</p>
           </div>
-          
           <div className="flex text-white">
             <div>1M Views</div>
             <DotIcon />
-            {formatDistance(new Date(thumbnail._creationTime), new Date(), {
-              addSuffix: true,
-            })}
+            {formatDistance(
+              new Date(thumbnail._creationTime),
+              new Date(),
+              {
+                addSuffix: true,
+              }
+            )}
           </div>
         </div>
       </div>
 
-      {hasVoted ? (
+      {!hasVoted && !isOwner && (
+        <Button
+          onClick={() => handleVote(imageId)}
+          size="lg"
+          className="w-fit self-center mt-2"
+          disabled={selectedImageId !== null}
+        >
+          Vote
+        </Button>
+      )}
+
+      {(hasVoted || isOwner) && (
         <>
           <Progress
             value={getVotePercent(thumbnail, imageId)}
             className="w-full bg-gray-200"
           />
           <div className="text-lg">{getVotesFor(thumbnail, imageId)} votes</div>
-          <Button
-            onClick={() => {
-              voteOnThumbnail({
-                thumbnailId: thumbnail._id,
-                imageId: imageId,
-              });
-            }}
-            size="lg"
-            className="w-fit self-center mt-2"
-            disabled={isOwner}
-          >
-            Unvote
-          </Button>
+          {!isOwner && (
+            <Button
+              onClick={() => handleUnvote(imageId)}
+              size="lg"
+              className="w-fit self-center mt-2"
+              disabled={selectedImageId !== imageId}
+            >
+              Unvote
+            </Button>
+          )}
         </>
-      ) : (
-        <Button
-          onClick={() => {
-            voteOnThumbnail({
-              thumbnailId: thumbnail._id,
-              imageId: imageId,
-            });
-          }}
-          size="lg"
-          className="w-fit self-center mt-2"
-          disabled={isOwner}
-        >
-          Vote
-        </Button>
       )}
     </div>
   );
@@ -168,7 +182,6 @@ export default function ThumbnailPage() {
 
   return (
     <div className="gap-12 flex flex-col">
-      <>
       <div className="flex items-center justify-center gap-2">
         Uploaded by
         <Link
@@ -262,7 +275,7 @@ export default function ThumbnailPage() {
           </div>
         </TabsContent>
       </Tabs>
-      </>
+
       <Comments thumbnail={thumbnail} />
     </div>
   );
